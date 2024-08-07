@@ -2,7 +2,11 @@ const express = require("express");
 const User = require("../Models/User");
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
+
+const jtw_secret = "iamhappywith$this";
 router.post('/',
     //validation for multiple parameters requir array 
     [body('name', 'enter a proper name').notEmpty().isLength({ min: 3 }),
@@ -30,14 +34,27 @@ router.post('/',
 
             }
 
+            const salt = await bcryptjs.genSalt(10);
+            let secPass = await bcryptjs.hash(req.body.password, salt);
+
+
+
             //this must be await because waiting for User creation
             user = await User.create({
                 name: req.body.name,
                 email: req.body.email,
-                password: req.body.password
+                password: secPass
             });
-            console.log(user)
-            res.json(user);
+
+            const data = {
+                user: { id: user.id }
+            }
+            const authToken = jwt.sign(data, jtw_secret);
+
+            // console.log(userData);
+            res.json({authToken });
+            // console.log(user)
+            // res.json(user);
 
         } catch (error) {
             console.error(error.message);
