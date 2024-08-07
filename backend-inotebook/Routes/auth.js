@@ -1,44 +1,54 @@
 const express = require("express");
 const User = require("../Models/User");
 const router = express.Router();
-const {body,validationResult} =require('express-validator');
+const { body, validationResult } = require('express-validator');
 
 router.post('/',
-    
-    [body('name','enter a proper name').notEmpty().isLength({min:3}),
-    body('email','enter a proper email').notEmpty().isEmail( ),
-    body('password','password must contain atleast 5 letters ').notEmpty().isLength({min:5})],
+    //validation for multiple parameters requir array 
+    [body('name', 'enter a proper name').notEmpty().isLength({ min: 3 }),
+    body('email', 'enter a proper email').notEmpty().isEmail(),
+    body('password', 'password must contain atleast 5 letters ').notEmpty().isLength({ min: 5 })],
 
+    async (req, res) => {
+        //this is for only practice to save user.
+        // console.log(req.body)
+        // const user = User(req.body);
+        // user.save()
 
- (req, res) => {
+        //if error happens and return bad request and error
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
 
-    // console.log(req.body)
-    // const user = User(req.body);
-    // user.save()
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors : errors.array()});
-    }
+        try {
+            //cheack whether the user and email exits 
+            let user = await User.findOne({ email: req.body.email });
+            if (user) {
 
-    User.create({
-        name:req.body.name,
-        email:req.body.email,
-        password:req.body.password
-    }).then(user=> res.json(user))
-    .catch((error)=>{
-        console.log(error) ;
-         res.json({error:'send a unique email',
-            message : error.message
-         });
+                return res.status(400).json({ errors: "user with this email already exists..." });
+
+            }
+
+            //this must be await because waiting for User creation
+            user = await User.create({
+                name: req.body.name,
+                email: req.body.email,
+                password: req.body.password
+            });
+            console.log(user)
+            res.json(user);
+
+        } catch (error) {
+            console.error(error.message);
+            res.status(500).send("some error occured...");
+        }
+        //this is new version of validation of req.body
+        // res.send(req.body)
+        // const result = validationResult(req);
+        // if (result.isEmpty()) {
+        //   return res.send(`Hello, ${req.query.person}!`);
+        // }
+        // res.send({ errors: result.array() });
     })
-
-    // res.send(req.body)
-    // const result = validationResult(req);
-    // if (result.isEmpty()) {
-    //   return res.send(`Hello, ${req.query.person}!`);
-    // }
-  
-    // res.send({ errors: result.array() });
-
-})
 module.exports = router;

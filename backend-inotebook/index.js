@@ -1,7 +1,7 @@
 const express = require("express");
 const connectToMongod = require('./db')
 const app = express();
-const PORT = 3000 ;
+const PORT = 5000 ;
 
 // const user
 
