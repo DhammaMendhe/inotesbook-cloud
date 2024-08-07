@@ -18,10 +18,10 @@ app.use('/api/notes',require('./Routes/notes'))
 
 
 
-app.get('/',(req,res)=>{
-    // res.send("get request is gooing")
+// app.get('/',(req,res)=>{
+//     // res.send("get request is gooing")
    
-})
+// })
 
 app.listen(PORT,()=>{
     console.log(`connected to ${PORT} successfully...`)

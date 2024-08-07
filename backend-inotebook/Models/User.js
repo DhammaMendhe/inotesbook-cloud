@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { use } = require('../Routes/auth');
 const { Schema } = mongoose; 
 
 const userSchema = new Schema({
@@ -21,4 +22,7 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('user', userSchema);
+const User = mongoose.model('user', userSchema);
+User.createIndexes();
+
+module.exports = User;

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const MongodURI = 'mongodb://localhost:27017/';
+const MongodURI = 'mongodb://localhost:27017/inotebookApp';
 
 
 const connectToMongod = () => {
