@@ -118,9 +118,12 @@ router.post('/login',
 router.post('/getuser',fetchUser, async (req,res)=>{
 
     try {
-        const userId = req.user;
-        const user = await User.findOne(User.id).select("-password");//.select -password is used to disselct the password
-          res.send(user)
+        const userId = req.user.id;
+        // console.log(userId)
+        // const user = await User.findOne(user.userId).select("-password");//.select -password is used to disselct the password
+        
+        const user = await User.findById(userId).select("-password");
+        res.send(user)
 
         
     } catch (error) {

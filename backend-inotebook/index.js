@@ -17,12 +17,6 @@ app.use('/api/notes',require('./Routes/notes'))
 //middleware using for handle the json file
 
 
-
-// app.get('/',(req,res)=>{
-//     // res.send("get request is gooing")
-   
-// })
-
 app.listen(PORT,()=>{
     console.log(`connected to ${PORT} successfully...`)
 })
