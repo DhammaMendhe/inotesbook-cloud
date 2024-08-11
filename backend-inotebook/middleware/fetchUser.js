@@ -10,9 +10,6 @@ const fetchUser = (req, res, next) => {
     try {
         const data = jwt.verify(token, jtw_secret);
         req.user = data.user;
-        // console.log(req.user)
-        // console.log(data.user)
-        // console.log(data);
         next();
     } catch (error) {
         res.status(401).send("please authenticate using proper token");

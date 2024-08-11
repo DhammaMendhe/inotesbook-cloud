@@ -13,20 +13,21 @@ const notesSchema = new Schema({
         type: String,
         required: true
     },
-    discription: {
+    description: {
         type: String,
-        required: true,
-        unique: true
+        required: true
+
     },
     tag: {
         type: String,
         required: true
     },
-    Date: {
+    date: {
         type: Date,
-        required: Date.now
+        default: Date.now
     }
 })
+
 
 const User = mongoose.model('notes', notesSchema);
 module.exports = User;

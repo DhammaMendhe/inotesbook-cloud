@@ -115,17 +115,17 @@ router.post('/login',
 
 //getuser endpoint is use to get user details 
 //fetchUser is middleware to get token vefication. we can use it in every part where we want to acces details of user
-router.post('/getuser',fetchUser, async (req,res)=>{
+router.post('/getuser', fetchUser, async (req, res) => {
 
     try {
         const userId = req.user.id;
         // console.log(userId)
         // const user = await User.findOne(user.userId).select("-password");//.select -password is used to disselct the password
-        
+
         const user = await User.findById(userId).select("-password");
         res.send(user)
 
-        
+
     } catch (error) {
         console.error(error.message);
         res.status(500).json({ error: "enter valid credentials for login." });
