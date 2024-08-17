@@ -14,7 +14,6 @@ import NotesStates from './Context/NotesStates';
 function App() {
   return (
     <div className="App">
-      <h1>this is inotebook cloud</h1>
       <NotesStates>
         <Router>
           <Navbar />

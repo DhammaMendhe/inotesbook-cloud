@@ -18,5 +18,5 @@ app.use('/api/notes',require('./Routes/notes'))
 
 
 app.listen(PORT,()=>{
-    console.log(`connected to ${PORT} successfully...`)
+    console.log(`backend sever connected to ${PORT} successfully...`)
 })
