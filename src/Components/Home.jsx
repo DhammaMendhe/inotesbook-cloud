@@ -1,5 +1,6 @@
 import React ,{useContext} from "react";
 import notecContext from "../Context/noteContext";
+import Notes from "./Notes";
 
 // import NotesStates from "../Context/NotesStates";
 
@@ -43,7 +44,7 @@ export default function Home() {
               className="form-check-input"
               id="exampleCheck1"
             />
-            <label className="form-check-label" for="exampleCheck1">
+            <label className="form-check-label text-primary text-opacity-75" for="exampleCheck1">
               Check me out
             </label>
           </div>
@@ -53,12 +54,7 @@ export default function Home() {
         </form>
       </div>
       <h2>your Notes</h2>
-      {notes.map((note) => {
-        return <>
-        <p>{note.title}</p><span/></>;
-        // ,item.title, item.description, item.tag, item.date
-        // console.log(notes)
-      })}
+  <Notes note={notes}/>
 
     </div>
   );
