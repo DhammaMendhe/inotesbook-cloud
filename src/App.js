@@ -9,12 +9,14 @@ import {
   Route,
 } from "react-router-dom";
 import NotesStates from './Context/NotesStates';
+import Alert from './Components/Alert';
 
 
 function App() {
   return (
     <div className="App">
       <NotesStates>
+        <Alert message={"this is going to be awosome..."}/>
         <Router>
           <Navbar />
           <Routes>
