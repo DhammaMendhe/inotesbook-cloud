@@ -11,10 +11,13 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
   const handleClick = (e) => {
     e.preventDefault();
     addNotes(note.title,note.description,note.tag);
-    console.log(note.description,note.tag,note.title)
+    // console.log(note.description,note.tag,note.title)
   };
 
   const onchange = (e) => {
+    // console.log(e.name) 
+    // console.log(e.value)
+
   setNote({ ...note,[e.target.name]:e.target.value})
   };
 
@@ -38,7 +41,7 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
             <div id="emailHelp" className="form-text text-primary"></div>
           </div>
           <div className="mb-3">
-            <label htmlFor="exampleInputPassword1" className="form-label">
+            <label htmlFor="description" className="form-label">
               description
             </label>
             <input
@@ -50,12 +53,25 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
             />
           </div>
 
+          <div className="mb-3">
+            <label htmlFor="tag" className="form-label">
+            tag
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="tag"
+              name="tag"
+              onChange={onchange}
+            />
+          </div>
+
           <button
             type="submit"
             className="btn btn-primary"
             onClick={handleClick}
           >
-            Submit
+            Addnote
           </button>
         </form>
       </div>

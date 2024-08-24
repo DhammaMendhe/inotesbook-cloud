@@ -1,12 +1,12 @@
-import React ,{useEffect}from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
 let location = useLocation();
 
-useEffect(()=>{
-  console.log(location);
-},[location])
+// useEffect(()=>{
+//   console.log(location);
+// },[location])
 
 
   return (
@@ -50,6 +50,7 @@ useEffect(()=>{
               <input
                 className="form-control me-2"
                 type="search"
+                id="search"
                 placeholder="Search"
                 aria-label="Search"
               />

@@ -1,11 +1,6 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 
 export default function About() {
-
-  // useEffect(() => {
-
-  // }, []);
-  
 
   return (
     <div>

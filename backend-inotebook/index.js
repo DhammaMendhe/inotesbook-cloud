@@ -1,5 +1,6 @@
 const express = require("express");
 const connectToMongod = require('./db')
+const cors = require('cors')
 const app = express();
 const PORT = 5000 ;
 
@@ -7,6 +8,7 @@ const PORT = 5000 ;
 
 connectToMongod();
 app.use(express.json());
+app.use(cors())
 
 
 //app.use() is used to connect middlware to join path

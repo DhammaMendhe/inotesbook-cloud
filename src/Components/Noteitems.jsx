@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
+import notecContext from "../Context/noteContext";
 
-export default function (props) {
+export default function Noteitems(props) {
+
+  const context = useContext(notecContext);
+  const { deleteNotes } = context;
+
+
   const { note } = props;
   return (
     <div className="container col-md-3">
@@ -10,7 +16,7 @@ export default function (props) {
           <h5 className="card-title">{note.title}</h5>
           <p className="card-text">{note.description}</p>
           <p className="card-text">{note.tag}</p>  <span/>  
-            <i className="fa-solid fa-trash-can"></i><span/>
+            <i className="fa-solid fa-trash-can" onClick={()=>{deleteNotes(note._id)}} ></i><span/>
             <i className="fa-solid fa-pen-to-square"></i><span/>
             <i className="fa-solid fa-plus"></i><span/>
         </div>
