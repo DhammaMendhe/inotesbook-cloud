@@ -10,10 +10,11 @@ const NotesStates = (props) => {
   //add notes
 
   const fetchnotes = async () => {
-
+console.log("this is go")
     //API call 
     const response = await fetch(`${host}/api/notes/fetchAllNotes`,
       {
+
         method: "GET",
         headers: {
           'Content-Type': 'application/json',
@@ -21,9 +22,8 @@ const NotesStates = (props) => {
         }
       });
     const json = await response.json();
-    console.log(json);
+    // console.log(json);
     setNotes(json)
-
 
   }
 
@@ -31,6 +31,7 @@ const NotesStates = (props) => {
 
   const addNotes = async (title, description, tag) => {
 
+    console.log("adding ntes")
     //API call 
     const response = await fetch(`${host}/api/notes/addnotes`,
       {
@@ -42,14 +43,13 @@ const NotesStates = (props) => {
         body: JSON.stringify({ title, description, tag })
 
       });
-    const json = response.json();
-
+    const json = await response.json();
+    console.log(json)
     setNotes(notes.concat(json))
 
   }
 
   // delete notes
-
   const deleteNotes = async (id) => {
 
     //API call 
@@ -61,10 +61,10 @@ const NotesStates = (props) => {
           'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZiNjVkMDE2NjgwYjVmODYzOGMyMjRmIn0sImlhdCI6MTcyMzIyNzUxMH0.5sycT3aRhdF-6AYXsWF54uxVidw_Bq69QI-mruV-oVk'
         }
       });
-    const json =  response.json();
-    console.log(json); 
+    const json = response.json();
+    console.log(json);
     console.log("note deleting with id :" + id)
-    const samplenNote = notes.filter((note)=> { return note._id !== id });
+    const samplenNote = notes.filter((note) => { return note._id !== id });
     console.log(samplenNote)
     setNotes(samplenNote)
 
@@ -75,15 +75,12 @@ const NotesStates = (props) => {
   //edit notes
 
   const editNotes = async (id, title, description, tag) => {
-
-
-
     //API call 
     const response = await fetch(`${host}/api/notes/updatenote/${id}`,
       {
-        method: "POST",
+        method: "PUT",
         headers: {
-          'Content-type': 'application/json',
+          'Content-Type': 'application/json',
           'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZiNjVkMDE2NjgwYjVmODYzOGMyMjRmIn0sImlhdCI6MTcyMzIyNzUxMH0.5sycT3aRhdF-6AYXsWF54uxVidw_Bq69QI-mruV-oVk'
         },
         body: JSON.stringify({ title, description, tag })
@@ -91,10 +88,13 @@ const NotesStates = (props) => {
       });
     const json = response.json();
 
-    for (let index = 0; index < notes.length(); index++) {
-      const element = json[index];
+    for (let index = 0; index < notes.length; index++) {
+      const element = notes[index];
 
       if (element._id === id) {
+        element.title = title  ;
+        element.description = description;
+        element.tag = tag;
 
       }
     }

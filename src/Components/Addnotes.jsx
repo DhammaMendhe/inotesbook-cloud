@@ -6,15 +6,15 @@ export default function Addnotes() {
   const { addNotes } = context;
 
 
-const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
+const [note,setNote] = useState({title:"" ,description:"",tag:""})
   
   const handleClick = (e) => {
     e.preventDefault();
     addNotes(note.title,note.description,note.tag);
-    // console.log(note.description,note.tag,note.title)
+    console.log(note.description,note.tag,note.title)
   };
 
-  const onchange = (e) => {
+  const onChange = (e) => {
     // console.log(e.name) 
     // console.log(e.value)
 
@@ -36,9 +36,8 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
               id="title"
               name="title"
               aria-describedby="emailHelp"
-              onChange={onchange}
+              onChange={onChange}
             />
-            <div id="emailHelp" className="form-text text-primary"></div>
           </div>
           <div className="mb-3">
             <label htmlFor="description" className="form-label">
@@ -49,7 +48,7 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
               className="form-control"
               id="description"
               name="description"
-              onChange={onchange}
+              onChange={onChange}
             />
           </div>
 
@@ -62,7 +61,7 @@ const [note,setNote] = useState({title:"" ,description:"",tag:"default"})
               className="form-control"
               id="tag"
               name="tag"
-              onChange={onchange}
+              onChange={onChange}
             />
           </div>
 
