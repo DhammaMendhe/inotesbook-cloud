@@ -11,7 +11,12 @@ export default function Notes() {
     fetchnotes();
   }, []);
 
-  const [note, setnote] = useState({ titlee: "", descriptione: "", tage: "" });
+  const [note, setnote] = useState({
+    id: "",
+    etitle: "",
+    edescription: "",
+    etag: "",
+  });
 
   const ref = useRef(null);
   const refClose = useRef(null);
@@ -19,15 +24,17 @@ export default function Notes() {
   const updatenotes = (curnote) => {
     ref.current.click();
     setnote({
-      titlee: curnote.title,
-      descriptione: curnote.description,
-      tage: curnote.tag,
+      id: curnote._id,
+      etitle: curnote.title,
+      edescription: curnote.description,
+      etag: curnote.tag
     });
   };
 
   const handleClick = (e) => {
     console.log("updating note", note);
     // e.preventDefault();
+    editNotes(note.id, note.etitle, note.edescription, note.etag);
     refClose.current.click(); // addNotes(note.title,note.description,note.tag )
   };
 
@@ -77,11 +84,13 @@ export default function Notes() {
                     <input
                       type="text"
                       className="form-control"
-                      id="titlee"
-                      name="titlee"
+                      id="etitle"
+                      name="etitle"
                       aria-describedby="emailHelp"
-                      value={note.titlee}
+                      value={note.etitle}
                       onChange={onChange}
+                      minLength={5}
+                      required
                     />
                     <div
                       id="emailHelp"
@@ -89,29 +98,31 @@ export default function Notes() {
                     ></div>
                   </div>
                   <div className="mb-3">
-                    <label htmlFor="descriptione" className="form-label">
+                    <label htmlFor="edescription" className="form-label">
                       description
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="descriptione"
-                      name="descriptione"
-                      value={note.descriptione}
+                      id="edescription"
+                      name="edescription"
+                      value={note.edescription}
                       onChange={onChange}
+                      minLength={5}
+                      required
                     />
                   </div>
 
                   <div className="mb-3">
-                    <label htmlFor="tage" className="form-label">
+                    <label htmlFor="etag" className="form-label">
                       tag
                     </label>
                     <input
                       type="text"
                       className="form-control"
-                      id="tage"
-                      name="tage"
-                      value={note.tage}
+                      id="etag"
+                      name="etag"
+                      value={note.etag}
                       onChange={onChange}
                     />
                   </div>
@@ -128,8 +139,9 @@ export default function Notes() {
                 Close
               </button>
               <button
+                disabled={note.etitle.length < 5}
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-primary" 
                 onClick={handleClick}
               >
                 update
@@ -140,6 +152,10 @@ export default function Notes() {
       </div>
       <div className="row">
         <h2>your Notes</h2>
+        <div className="container">
+          {notes.length === 0 && "no notes found.."}
+        </div>
+
         {notes.map((note) => {
           return (
             <Noteitems key={note._id} updatenotes={updatenotes} note={note} />

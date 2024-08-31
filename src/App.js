@@ -8,9 +8,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
 import NotesStates from './Context/NotesStates';
 import Alert from './Components/Alert';
-
+import Login from './Components/loginSignup/Login';
+import Signup from './Components/loginSignup/Signup';
 
 function App() {
   return (
@@ -20,8 +22,11 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
+
             <Route exact path='/home' element={<Home />} />
-            <Route exact path='/about' element={<About />} />
+            <Route exact path='/about' element={<About />}/>
+            <Route exact path='/login' element={<Login />} />
+            <Route exact path='/signup' element={<Signup />}/>
           </Routes>
         </Router>
       </NotesStates>

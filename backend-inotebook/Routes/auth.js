@@ -29,9 +29,10 @@ router.post('/createuser',
         try {
             //cheack whether the user and email exits 
             let user = await User.findOne({ email: req.body.email });
-            if (user) {
+            if (user) {success = false;
 
-                return res.status(400).json({ errors: "user with this email already exists..." });
+
+                return res.status(400).json({success, errors: "user with this email already exists..." });
 
             }
 
@@ -51,8 +52,8 @@ router.post('/createuser',
                 user: { id: user.id }
             }
             const authToken = jwt.sign(data, jtw_secret);
-
-            res.json({ authToken });
+           success = true;
+            res.json({ success ,authToken });
             // console.log(user)
             // res.json(user);
 
@@ -96,15 +97,17 @@ router.post('/login',
             const passwordCompare = await bcryptjs.compare(password, user.password);
 
             if (!passwordCompare) {
-                return res.status(500).json({ error: "enter valid credentials for login." });
+                success = false;
+
+                return res.status(500).json({ success,error: "enter valid credentials for login." });
             }
 
             const data = {
                 user: { id: user.id }
             }
             const authToken = jwt.sign(data, jtw_secret);
-
-            res.json({ authToken });
+success = true;
+            res.json({ success,authToken });
 
         } catch (error) {
             console.error(error.message);

@@ -27,7 +27,7 @@ router.get('/fetchAllNotes', fetchUser, async (req, res) => {
 router.post('/addnotes', fetchUser,
     //validation for multiple parameters requir array 
     [body('title', 'enter a proper title').isLength({ min: 3 }),
-    body('description', 'description must contain atleast 12 letters').isLength({ min: 10 })],
+    body('description', 'description must contain atleast 5 letters').isLength({ min: 5 })],
     async (req, res) => {
 
         //destructuring the elements

@@ -15,7 +15,7 @@ export default function Noteitems(props) {
         <div className="card-body">
           <h5 className="card-title">{note.title}</h5>
           <p className="card-text">{note.description}</p>
-          <p className="card-text">{note.tag}</p>  <span/>  
+          <p className="card-text">{note.tag}</p> <span/>  
             <i className="fa-solid fa-trash-can" onClick={()=>{deleteNotes(note._id)}} ></i><span/>
             <i className="fa-solid fa-pen-to-square" onClick={()=>{updatenotes(note)}}  ></i><span/>
             <i className="fa-solid fa-plus"></i><span/>

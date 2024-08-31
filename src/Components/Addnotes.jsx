@@ -5,20 +5,20 @@ export default function Addnotes() {
   const context = useContext(notecContext);
   const { addNotes } = context;
 
+  const [note, setNote] = useState({ title: "", description: "", tag: "" });
 
-const [note,setNote] = useState({title:"" ,description:"",tag:""})
-  
   const handleClick = (e) => {
     e.preventDefault();
-    addNotes(note.title,note.description,note.tag);
-    console.log(note.description,note.tag,note.title)
+    addNotes(note.title, note.description, note.tag);
+    setNote({ title: "", description: "", tag: "" });
+    // console.log(note.description, note.tag, note.title);
   };
 
   const onChange = (e) => {
-    // console.log(e.name) 
+    // console.log(e.name)
     // console.log(e.value)
 
-  setNote({ ...note,[e.target.name]:e.target.value})
+    setNote({ ...note, [e.target.name]: e.target.value });
   };
 
   return (
@@ -36,7 +36,10 @@ const [note,setNote] = useState({title:"" ,description:"",tag:""})
               id="title"
               name="title"
               aria-describedby="emailHelp"
+              value={note.title}
               onChange={onChange}
+              minLength={5}
+              required
             />
           </div>
           <div className="mb-3">
@@ -48,24 +51,36 @@ const [note,setNote] = useState({title:"" ,description:"",tag:""})
               className="form-control"
               id="description"
               name="description"
+              value={note.description}
+
               onChange={onChange}
+
+              minLength={5}
+              required
             />
           </div>
 
           <div className="mb-3">
             <label htmlFor="tag" className="form-label">
-            tag
+              tag
             </label>
             <input
               type="text"
               className="form-control"
               id="tag"
               name="tag"
+              value={note.tag}
+
               onChange={onChange}
             />
           </div>
 
           <button
+            disabled={
+              note.title.length < 5 &&
+              note.description.length < 5 &&
+              note.tag.length < 5
+            }
             type="submit"
             className="btn btn-primary"
             onClick={handleClick}
