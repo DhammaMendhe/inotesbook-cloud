@@ -15,6 +15,7 @@ router.post('/createuser',
     body('password', 'password must contain atleast 5 letters ').notEmpty().isLength({ min: 5 })],
 
     async (req, res) => {
+        let success = false;
         //this is for only practice to save user.
         // console.log(req.body)
         // const user = User(req.body);
@@ -23,16 +24,14 @@ router.post('/createuser',
         //if error happens and return bad request and error
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ success, errors: errors.array() });
         }
 
         try {
             //cheack whether the user and email exits 
             let user = await User.findOne({ email: req.body.email });
-            if (user) {success = false;
-
-
-                return res.status(400).json({success, errors: "user with this email already exists..." });
+            if (user) {
+                return res.status(400).json({ success, errors: "user with this email already exists..." });
 
             }
 
@@ -52,8 +51,8 @@ router.post('/createuser',
                 user: { id: user.id }
             }
             const authToken = jwt.sign(data, jtw_secret);
-           success = true;
-            res.json({ success ,authToken });
+            success = true;
+            res.json({ success, authToken });
             // console.log(user)
             // res.json(user);
 
@@ -99,15 +98,15 @@ router.post('/login',
             if (!passwordCompare) {
                 success = false;
 
-                return res.status(500).json({ success,error: "enter valid credentials for login." });
+                return res.status(500).json({ success, error: "enter valid credentials for login." });
             }
 
             const data = {
                 user: { id: user.id }
             }
             const authToken = jwt.sign(data, jtw_secret);
-success = true;
-            res.json({ success,authToken });
+            success = true;
+            res.json({ success, authToken });
 
         } catch (error) {
             console.error(error.message);

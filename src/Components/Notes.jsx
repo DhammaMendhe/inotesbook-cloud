@@ -3,10 +3,10 @@ import Noteitems from "./Noteitems";
 import notecContext from "../Context/noteContext";
 import Addnotes from "./Addnotes";
 
-export default function Notes() {
+export default function Notes(props) {
   const context = useContext(notecContext);
   const { notes, fetchnotes, editNotes } = context;
-
+const {showalert} = props;
   useEffect(() => {
     fetchnotes();
   }, []);
@@ -29,13 +29,18 @@ export default function Notes() {
       edescription: curnote.description,
       etag: curnote.tag
     });
+    // props.showalert("logged in successfully","success");
+
   };
 
   const handleClick = (e) => {
     console.log("updating note", note);
     // e.preventDefault();
     editNotes(note.id, note.etitle, note.edescription, note.etag);
+    props.showalert("note updated successfully","success");
+
     refClose.current.click(); // addNotes(note.title,note.description,note.tag )
+
   };
 
   const onChange = (e) => {
@@ -44,7 +49,7 @@ export default function Notes() {
 
   return (
     <>
-      <Addnotes />
+      <Addnotes  showalert={showalert}/>
 
       <button
         type="button"
@@ -158,7 +163,7 @@ export default function Notes() {
 
         {notes.map((note) => {
           return (
-            <Noteitems key={note._id} updatenotes={updatenotes} note={note} />
+            <Noteitems key={note._id} updatenotes={updatenotes} note={note}  showalert={props.showalert}/>
           );
         })}
       </div>

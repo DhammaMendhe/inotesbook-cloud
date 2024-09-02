@@ -53,10 +53,10 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <Link type="button" class="btn btn-primary mx-2" to="/Login">
+            <Link type="button" className="btn btn-primary mx-2" to="/Login">
               login
             </Link>
-            <Link type="button" class="btn btn-primary mx-2" to="/Signup">
+            <Link type="button" className="btn btn-primary mx-2" to="/Signup">
               Signup
             </Link>
           </div>

@@ -64,6 +64,7 @@ const NotesStates = (props) => {
     const samplenNote = notes.filter((note) => { return note._id !== id });
     console.log(samplenNote)
     setNotes(samplenNote)
+
   }
 
 

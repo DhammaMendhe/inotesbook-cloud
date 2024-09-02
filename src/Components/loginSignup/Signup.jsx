@@ -1,89 +1,99 @@
 import React, { useState } from "react";
+import {  useNavigate } from "react-router-dom";
+export default function Signup(props) {
+  const [credentials, setcredentials] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+  const navigate = useNavigate();
 
-export default function Signup() {
+  const handleClick = async (e) => {
+    e.preventDefault();
+    console.log("this is fetch");
+    const { name, email, password } = credentials;
 
-  // const initialuser = [];
+    const response = await fetch("http://localhost:5000/api/auth/createuser", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ name, email, password }),
+    });
 
-  // const [user,setUser ] = useState(initialuser);
+    const json = await response.json();
+    console.log(json);
+    if(json.success){
+      localStorage.setItem("token", json.authtoken);
+      navigate("/home");
+      props.showalert("logged in successfully","success");
 
-  // const handleClick = async (e) => {
-  //   e.preventDefault();
-  //   console.log("this is fetch");
+    }
+    else{
+      props.showalert("invalid credentials","danger");
 
-  //   const response = await fetch("http://localhost:5000/api/auth/createuser", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //       "auth-token":
-  //         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjZiNjVlZjgyYWFiYzJiNTkwZTVhZjk4In0sImlhdCI6MTcyMzIyNzk2OH0.UjQsb4BpYntRfmR-e4qvMAefi1piGcP4Tl_S1ko9zaI",
-  //     },
-  //     body:JSON.stringify({name,email,password})
-  //   });
+    }
+  };
 
-  //   const json = await response.json();
-  //   console.log(json);
-    
-
-  // };
-
-
-  // const onChange = (e) => {
-  //   setUser({ ...note, [e.target.name]: e.target.value });
-  // };
-  // return (
-  //   <div>
-  //     <form className="border w-50  my-5" onSubmit={handleClick}>
-  //       <div className="form-group ">
-  //       <div className="form-group ">
-  //         <label for="exampleInputPassword1">Name</label>
-  //         <input
-  //           type="text"
-  //           className="form-control"
-  //           name="Name"
-  //           id="Name"
-  //           placeholder="Name"
-  //           onChange={onChange}
-  //         />
-  //       </div>
-  //         <label for="exampleInputEmail1">Email address</label>
-  //         <input
-  //           type="email"
-  //           className="form-control"
-  //           name="email"
-  //           id="email"
-  //           aria-describedby="emailHelp"
-  //           placeholder="Enter email"
-  //           onChange={onChange}
-  //         />
-  //         <small id="emailHelp" className="form-text text-muted">
-  //           We'll never share your email with anyone else.
-  //         </small>
-  //       </div>
-  //       <div className="form-group ">
-  //         <label for="exampleInputPassword1">Password</label>
-  //         <input
-  //           type="password"
-  //           className="form-control"
-  //           name="password"
-  //           id="password"
-  //           placeholder="Password"
-  //           onChange={onChange}
-  //         />
-  //       </div>
-  //       <div className="form-check">
-  //         <input
-  //           type="checkbox"
-  //           className="form-check-input"
-  //           id="exampleCheck1"
-  //         />
-  //         <label className="form-check-label" for="exampleCheck1">
-  //           Check me out
-  //         </label>
-  //       </div>
-  //       <button  type="submit" className="btn btn-primary">
-  //         Submit
-  //       </button>
-  //     </form>
-    // </div>
-  // );
+  const onChange = (e) => {
+    setcredentials({ ...credentials, [e.target.name]: e.target.value });
+  };
+  return (
+    <div className="container d-flex justify-content-center">
+      <form className="border w-50  my-5" onSubmit={handleClick}>
+        <div className="form-group ">
+          <div className="form-group ">
+            <label htmlFor="exampleInputPassword1">Name</label>
+            <input
+              type="text"
+              className="form-control"
+              name="name"
+              id="name"
+              placeholder="Name"
+              onChange={onChange}
+            />
+          </div>
+          <label htmlFor="exampleInputEmail1">Email address</label>
+          <input
+            type="email"
+            className="form-control"
+            name="email"
+            id="email"
+            aria-describedby="emailHelp"
+            placeholder="Enter email"
+            onChange={onChange}
+          />
+        </div>
+        <div className="form-group ">
+          <label htmlFor="exampleInputPassword1">Password</label>
+          <input
+            type="password"
+            className="form-control"
+            name="password"
+            id="password"
+            placeholder="Password"
+            onChange={onChange}
+            minLength={5}
+            required
+          />
+        </div>
+        <div className="form-group ">
+          <label htmlFor="exampleInputPassword1">Confirm Password</label>
+          <input
+            type="password"
+            className="form-control"
+            name="cpassword"
+            id="cpassword"
+            placeholder="Confirm Password"
+            onChange={onChange}
+            minLength={5}
+            required
+          />
+        </div>
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+      </form>
+    </div>
+  );
 }

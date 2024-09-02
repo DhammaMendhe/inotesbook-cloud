@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { json, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 export default function Login(props) {
   const [credentials, setcredentials] = useState({ email: "", password: "" });
   const navigate = useNavigate();
 
-  const handleClick = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const response = await fetch("http://localhost:5000/api/auth/login", {
@@ -25,8 +25,10 @@ export default function Login(props) {
       // redirect
       localStorage.setItem("token", json.authtoken);
       navigate("/home");
+      props.showalert("logged in successfully","success");
+
     } else {
-      alert("invalid credentials");
+      props.showalert("invalid credetials","danger");
     }
   };
 
@@ -36,7 +38,7 @@ export default function Login(props) {
 
   return (
     <div className="d-flex justify-content-center  h-75">
-      <form className="border w-50  my-5" onSubmit={handleClick}>
+      <form className="border w-50  my-5" onSubmit={handleSubmit}>
         <div className="form-group ">
           <label for="exampleInputEmail1">Email address</label>
           <input
@@ -48,6 +50,8 @@ export default function Login(props) {
             aria-describedby="emailHelp"
             placeholder="Enter email"
             onChange={onChange}
+            minLength={5}
+            required
           />
           <small id="emailHelp" className="form-text text-muted">
             We'll never share your email with anyone else.
@@ -63,6 +67,8 @@ export default function Login(props) {
             id="password "
             placeholder="Password"
             onChange={onChange}
+            minLength={5}
+            required
           />
         </div>
         <div className="form-check">

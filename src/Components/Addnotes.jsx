@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import notecContext from "../Context/noteContext";
 
-export default function Addnotes() {
+export default function Addnotes(props) {
   const context = useContext(notecContext);
   const { addNotes } = context;
 
@@ -11,6 +11,8 @@ export default function Addnotes() {
     e.preventDefault();
     addNotes(note.title, note.description, note.tag);
     setNote({ title: "", description: "", tag: "" });
+    props.showalert("note added successfully", "success");
+
     // console.log(note.description, note.tag, note.title);
   };
 
@@ -52,9 +54,7 @@ export default function Addnotes() {
               id="description"
               name="description"
               value={note.description}
-
               onChange={onChange}
-
               minLength={5}
               required
             />
@@ -70,7 +70,6 @@ export default function Addnotes() {
               id="tag"
               name="tag"
               value={note.tag}
-
               onChange={onChange}
             />
           </div>
