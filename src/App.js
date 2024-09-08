@@ -34,7 +34,6 @@ function App() {
         <Router>
           <Navbar />
           <Routes>
-
             <Route exact path='/home' element={<Home showalert={showalert} />} />
             <Route exact path='/about' element={<About showalert={showalert}/>}/>
             <Route exact path='/login' element={<Login showalert={showalert}/>} />

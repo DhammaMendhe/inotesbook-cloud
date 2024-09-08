@@ -24,8 +24,9 @@ export default function Login(props) {
     if (json.success) {
       // redirect
       localStorage.setItem("token", json.authtoken);
-      navigate("/home");
+      console.log("Token saved successfully.");
       props.showalert("logged in successfully","success");
+      navigate("/home");
 
     } else {
       props.showalert("invalid credetials","danger");
@@ -37,13 +38,15 @@ export default function Login(props) {
   };
 
   return (
+    <div className="mt-3">
+      <h1>login for using iNotebook app</h1>
     <div className="d-flex justify-content-center  h-75">
-      <form className="border w-50  my-5" onSubmit={handleSubmit}>
-        <div className="form-group ">
-          <label for="exampleInputEmail1">Email address</label>
+      <form className=" w-50  my-5" onSubmit={handleSubmit}>
+        <div className="form-group mt-4 ">
+          <label htmlFor="exampleInputEmail1">Email address</label>
           <input
             type="email"
-            className="form-control"
+            className="form-control mt-3"
             value={credentials.email}
             name="email"
             id="email"
@@ -57,11 +60,11 @@ export default function Login(props) {
             We'll never share your email with anyone else.
           </small>
         </div>
-        <div className="form-group ">
-          <label for="exampleInputPassword1">Password</label>
+        <div className="form-group mt-4 ">
+          <label htmlFor="exampleInputPassword1">Password</label>
           <input
             type="password"
-            className="form-control"
+            className="form-control mt-3"
             value={credentials.password}
             name="password"
             id="password "
@@ -71,20 +74,12 @@ export default function Login(props) {
             required
           />
         </div>
-        <div className="form-check">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            id="exampleCheck1"
-          />
-          <label className="form-check-label" for="exampleCheck1">
-            Check me out
-          </label>
-        </div>
-        <button type="submit" className="btn btn-primary">
+      
+        <button type="submit" className="btn btn-primary mt-4">
           Submit
         </button>
       </form>
+    </div>
     </div>
   );
 }

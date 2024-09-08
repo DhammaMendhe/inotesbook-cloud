@@ -11,7 +11,6 @@ export default function Alert(props) {
   };
   return (
     <div>
-      {/* { console.log("this is alert")} */}
       { props.alert && (
         <div className={`alert alert-${props.alert.type}`} role="alert">
         

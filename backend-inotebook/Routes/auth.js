@@ -50,9 +50,9 @@ router.post('/createuser',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, jtw_secret);
+            const authtoken = jwt.sign(data, jtw_secret);
             success = true;
-            res.json({ success, authToken });
+            res.json({ success, authtoken });
             // console.log(user)
             // res.json(user);
 
@@ -104,9 +104,9 @@ router.post('/login',
             const data = {
                 user: { id: user.id }
             }
-            const authToken = jwt.sign(data, jtw_secret);
+            const authtoken = jwt.sign(data, jtw_secret);
             success = true;
-            res.json({ success, authToken });
+            res.json({ success, authtoken });
 
         } catch (error) {
             console.error(error.message);

@@ -23,10 +23,14 @@ export default function Signup(props) {
 
     const json = await response.json();
     console.log(json);
+
     if(json.success){
-      localStorage.setItem("token", json.authtoken);
-      navigate("/home");
+      console.log("Token saved successfully.");
+
+      localStorage.setItem("token",json.authtoken);
+
       props.showalert("logged in successfully","success");
+      navigate("/home");
 
     }
     else{
@@ -39,8 +43,11 @@ export default function Signup(props) {
     setcredentials({ ...credentials, [e.target.name]: e.target.value });
   };
   return (
-    <div className="container d-flex justify-content-center">
+    <div className="mt-3">
+      <h1>Ceate an account for using iNotebook app</h1>
+    <div className="container d-flex justify-content-center ">
       <form className="border w-50  my-5" onSubmit={handleClick}>
+
         <div className="form-group ">
           <div className="form-group ">
             <label htmlFor="exampleInputPassword1">Name</label>
@@ -94,6 +101,7 @@ export default function Signup(props) {
           Submit
         </button>
       </form>
+    </div>
     </div>
   );
 }

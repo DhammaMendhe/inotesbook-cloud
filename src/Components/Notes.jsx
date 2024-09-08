@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Noteitems from "./Noteitems";
 import notecContext from "../Context/noteContext";
 import Addnotes from "./Addnotes";
@@ -6,9 +7,17 @@ import Addnotes from "./Addnotes";
 export default function Notes(props) {
   const context = useContext(notecContext);
   const { notes, fetchnotes, editNotes } = context;
-const {showalert} = props;
+  const { showalert } = props;
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetchnotes();
+    if (localStorage.getItem('token')) {
+      fetchnotes();
+      console.log('token')
+
+    } else {
+      navigate("/login");
+    }
   }, []);
 
   const [note, setnote] = useState({
@@ -27,20 +36,18 @@ const {showalert} = props;
       id: curnote._id,
       etitle: curnote.title,
       edescription: curnote.description,
-      etag: curnote.tag
+      etag: curnote.tag,
     });
     // props.showalert("logged in successfully","success");
-
   };
 
   const handleClick = (e) => {
     console.log("updating note", note);
     // e.preventDefault();
     editNotes(note.id, note.etitle, note.edescription, note.etag);
-    props.showalert("note updated successfully","success");
+    props.showalert("note updated successfully", "success");
 
     refClose.current.click(); // addNotes(note.title,note.description,note.tag )
-
   };
 
   const onChange = (e) => {
@@ -49,7 +56,7 @@ const {showalert} = props;
 
   return (
     <>
-      <Addnotes  showalert={showalert}/>
+      <Addnotes showalert={showalert} />
 
       <button
         type="button"
@@ -146,7 +153,7 @@ const {showalert} = props;
               <button
                 disabled={note.etitle.length < 5}
                 type="button"
-                className="btn btn-primary" 
+                className="btn btn-primary"
                 onClick={handleClick}
               >
                 update
@@ -163,7 +170,12 @@ const {showalert} = props;
 
         {notes.map((note) => {
           return (
-            <Noteitems key={note._id} updatenotes={updatenotes} note={note}  showalert={props.showalert}/>
+            <Noteitems
+              key={note._id}
+              updatenotes={updatenotes}
+              note={note}
+              showalert={props.showalert}
+            />
           );
         })}
       </div>
