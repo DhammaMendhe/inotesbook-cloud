@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/inotesbook-cloud/static/css/main.70697b50.css",
+    "main.js": "/inotesbook-cloud/static/js/main.92dfc65d.js",
+    "index.html": "/inotesbook-cloud/index.html",
+    "main.70697b50.css.map": "/inotesbook-cloud/static/css/main.70697b50.css.map",
+    "main.92dfc65d.js.map": "/inotesbook-cloud/static/js/main.92dfc65d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.70697b50.css",
+    "static/js/main.92dfc65d.js"
+  ]
+}
