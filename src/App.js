@@ -6,12 +6,14 @@ import NotesStates from './Context/NotesStates';
 import Alert from './Components/Alert';
 import Login from './Components/loginSignup/Login';
 import Signup from './Components/loginSignup/Signup';
+// import LoginUser from './Components/LoginUser'
 import { useState } from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
+import LoginUser from './Components/LoginUser';
 
 function App() {
   const [alert,setalert] = useState(null);
@@ -33,11 +35,15 @@ function App() {
         <Alert alert={alert}/>
         <Router>
           <Navbar />
+          
           <Routes>
+
             <Route exact path='/home' element={<Home showalert={showalert} />} />
             <Route exact path='/about' element={<About showalert={showalert}/>}/>
             <Route exact path='/login' element={<Login showalert={showalert}/>} />
             <Route exact path='/signup' element={<Signup showalert={showalert}/>}/>
+            <Route exact path='/loginUser' element={<LoginUser showalert={showalert}/>}/>
+
           </Routes>
         </Router>
       </NotesStates>

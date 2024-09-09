@@ -11,6 +11,11 @@ export default function Navbar() {
     localStorage.removeItem("token");
     navigate("/login");
   };
+  const handleluser = () => {
+    if (localStorage.getItem("token")) {
+      console.log("token");
+    }
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -75,13 +80,14 @@ export default function Navbar() {
               </form>
             ) : (
               <div className="container d-flex justify-content-end">
-                <button
+                <Link
                   type="button"
                   className="btn btn-primary mx-2"
-                  onClick={handlelogout}
+                  onClick={handleluser}
+                  to={'/loginUser'}
                 >
                   user info
-                </button>
+                </Link>
                 <button
                   type="button"
                   className="btn btn-primary mx-2"
@@ -89,7 +95,7 @@ export default function Navbar() {
                 >
                   logout
                 </button>
-               </div>
+              </div>
             )}
           </div>
         </div>

@@ -27,8 +27,13 @@ export default function Login(props) {
       console.log("Token saved successfully.");
       props.showalert("logged in successfully","success");
       navigate("/home");
+      // if(localStorage.getItem('token')){
+      //   <> user information </>
+      // }else{
+  
+      // }
 
-    } else {
+    } else  {
       props.showalert("invalid credetials","danger");
     }
   };
